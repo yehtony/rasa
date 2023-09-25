@@ -7,22 +7,10 @@ def callGpt(
         messages: List[Any],
         temperature: float = 0.3
     ) -> str:
-    url: str = "https://api.openai.com/v1/chat/completions"
-    payload = json.dumps({
-        "model": "gpt-3.5-turbo",
-        "messages": messages,
-        "temperature": temperature,
-        "top_p": 1,
-        "n": 1,
-        "stream": False,
-        "max_tokens": 250,
-        "presence_penalty": 0,
-        "frequency_penalty": 0
-    })
+    url: str = f"http://140.115.126.50:8000/callapi/chatGPT?temperature={temperature}&max_tokens=250&top_p=1&purpose=none"
+    payload = json.dumps(messages)
     headers = {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer <GPT-KEY>'
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
