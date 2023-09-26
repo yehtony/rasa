@@ -7,7 +7,7 @@ def callGpt(
         messages: List[Any],
         temperature: float = 0.3
     ) -> str:
-    url: str = f"http://140.115.126.50:8000/callapi/chatGPT?temperature={temperature}&max_tokens=250&top_p=1&purpose=none"
+    url: str = f"https://model.hsueh.tw/callapi/chatGPT?temperature={temperature}&max_tokens=250&top_p=1&purpose=none"
     payload = json.dumps(messages)
     headers = {
         'Content-Type': 'application/json',
