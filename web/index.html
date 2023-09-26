@@ -64,6 +64,7 @@
     </div>
 
     <script>
+        let eightDigitRandomNumber = Math.floor(Math.random() * 100000000).toString().padStart(8,'0');
         function sendMessage() {
             var message = document.getElementById("messageInput").value;
             var chatContainer = document.getElementById("chatContainer");
@@ -78,12 +79,15 @@
             document.getElementById("messageInput").value = "";
 
             // Send POST request to Backend Service
-            fetch('http://140.115.126.96:5005/webhooks/rest/webhook/', {
+            fetch('http://rasa.hsueh.tw:5005/webhooks/rest/webhook/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: message.replaceAll(' ','') }),
+                body: JSON.stringify({ 
+                    sender: eightDigitRandomNumber,
+                    message: message.replaceAll(' ','') 
+                }),
             })
             .then(response => response.json())
             .then(data => {
