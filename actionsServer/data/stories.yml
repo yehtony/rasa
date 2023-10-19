@@ -10,7 +10,21 @@ stories:
 - story: chat path
   steps:
   - intent: chat
+  - action: action_check_question   # 自定義的動作，用於判斷與某主題的相關性
+  - slot_was_set:
+    - questionCheck: true  # 假設判斷為問題
+  - action: action_check_topic   # 自定義的動作，用於判斷與某主題的相關性
+  - slot_was_set:
+    - topicCheck: true  # 假設判斷為與主題相關
+  - action: utter_ask
+  - action: action_refactor_question   # 與某主題相關的動作
+  - slot_was_set:
+    - topicCheck: false  # 假设判斷為與主題不相關
+  - action: utter_chat   # 與某主題不相關的回應
+  - slot_was_set:
+    - questionCheck: false  # 假設判斷為非問題
   - action: utter_chat
+
 
 - story: deny path
   steps:
@@ -23,8 +37,19 @@ stories:
   # - action: utter_affirm
   - action: action_answer_question
 
-- story: ask path
-  steps:
-  - intent: ask
-  - action: utter_ask
-  - action: action_refactor_question
+# - story: ask path
+#   steps:
+#   - intent: ask
+#   - action: utter_ask
+#   - action: action_refactor_question
+
+# - story: ask path
+#   steps:
+#   - action: action_check_topic   # 自定義的動作，用於判斷與某主題的相關性
+#   - slot_was_set:
+#     - topicCheck: true  # 假設判斷為與主題相關
+#   - action: utter_ask
+#   - action: action_refactor_question   # 與某主題相關的動作
+#   - slot_was_set:
+#     - topicCheck: false  # 假设判斷為與主題不相關
+#   - action: utter_chat   # 與某主題不相關的回應

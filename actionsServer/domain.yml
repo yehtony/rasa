@@ -4,7 +4,8 @@ intents:
   - greet
   - affirm
   - deny
-  - ask
+  # - ask
+  - chat
 
 responses:
   utter_greet:
@@ -18,9 +19,6 @@ responses:
   utter_chat:
   - text: "這不是我們要討論的問題喔"
 
-
-
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
@@ -28,6 +26,8 @@ session_config:
 actions:
   - action_refactor_question
   - action_answer_question
+  - action_check_question
+  - action_check_topic
 
 slots:
   newQuestion:
@@ -41,5 +41,26 @@ slots:
     type: list
     influence_conversation: true
     initial_value: null
+    mappings:
+      - type: custom
+
+  questionCheck:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: custom
+
+  # question:
+  #   type: text
+  #   influence_conversation: true
+  #   initial_value: null
+  #   mappings:
+  #     - type: custom
+  
+  topicCheck:
+    type: bool
+    influence_conversation: true
+    initial_value: false
     mappings:
       - type: custom
